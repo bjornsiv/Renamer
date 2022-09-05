@@ -1,5 +1,5 @@
 import os;
-from tkinter import ttk, Tk, Entry, Label, filedialog as fd, DISABLED
+from tkinter import ttk, Tk, Entry, Label, filedialog as fd
 window = Tk()
 window.title("Rename files")
 window.geometry('300x200')
