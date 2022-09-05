@@ -19,4 +19,4 @@ Family_Vaccation04.png
 
 Simply run the script and be greeted by a gui interface and start renaming!
 
-If you find any mistakes/improvments, create an issue or send me an [e-mail](mailto:kontakt@sivert.priv.no?subject=[GitHub]%13GPA-calculator)
+If you find any mistakes/improvments, create an issue or send me an [e-mail](mailto:kontakt@sivert.priv.no?subject=[GitHub]%13Renamer)
