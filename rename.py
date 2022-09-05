@@ -24,7 +24,7 @@ Label_fileName.grid(column=0, row=3)
 
 
 folder = "Files"
-initDir = str(os.getcwd()) + folder
+initDir = f"{str(os.getcwd())}/{folder}"
 User_filePath.insert(0, initDir)
 
 def printInput():
@@ -37,17 +37,20 @@ def printInput():
 def rename():
     inp = User_fileName.get()
     inp2 = User_fileExt.get()
+    totalFiles = len(os.listdir(User_filePath.get()))
 
-    for count, filename in enumerate(os.listdir(folder), 1):
+    print(f"Starting Renaming")
+    for count, filename in enumerate(os.listdir(User_filePath.get()), 1):
         dst = f"{str(inp) + str(count).zfill(2) + str(inp2)}"
-        src =f"{folder}/{filename}" 
-        dst =f"{folder}/{dst}"
+        src =f"{User_filePath.get()}/{filename}" 
+        dst =f"{User_filePath.get()}/{dst}"
         os.rename(src, dst)
+        print(f"Renaming {count} of {totalFiles}")
 
 def findPath():
     f = fd.askdirectory(initialdir=initDir)
     print("File Path: " + f)
-  
+    User_filePath.delete(0, 'end')
     User_filePath.insert(0, f)
 
 
