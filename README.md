@@ -1,4 +1,4 @@
-#Renamer
+# Renamer
 
 This is a small file renamer that is designed to rename files following a pre set pattern. 
 
