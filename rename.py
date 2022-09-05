@@ -1,5 +1,5 @@
 import os;
-from tkinter import N, ttk, Tk, Entry, Label, filedialog as fd
+from tkinter import ttk, Tk, Entry, Label, filedialog as fd, DISABLED
 window = Tk()
 window.title("Rename files")
 window.geometry('300x200')
@@ -17,20 +17,24 @@ User_fileExt.grid(column=1, row=2)
 Label_fileName = Label(window, text = "FileExtension:")
 Label_fileName.grid(column=0, row=2)
 
-User_filePath = Entry(window)
+User_filePath = Entry(window) #state=DISABLED
 User_filePath.grid(column=1, row=3)
 Label_fileName = Label(window, text = "FilePath:")
 Label_fileName.grid(column=0, row=3)
+
+
+folder = "Files"
+initDir = str(os.getcwd()) + folder
+User_filePath.insert(0, initDir)
 
 def printInput():
     inp = User_fileName.get()
     inp2 = User_fileExt.get()
     count = 1
     dst = f"{str(inp) + str(count).zfill(2) + str(inp2)}"
-    print("FileName: " + inp + "\n" + "FileExt: " + inp2 + "\n" + "FinalFileName: " + dst)
+    print(f"FileName: {inp}\nFileExt: {inp2}\nFinalFileName: {dst}")
 
 def rename():
-    folder = "Files"
     inp = User_fileName.get()
     inp2 = User_fileExt.get()
 
@@ -40,10 +44,19 @@ def rename():
         dst =f"{folder}/{dst}"
         os.rename(src, dst)
 
+def findPath():
+    f = fd.askdirectory(initialdir=initDir)
+    print("File Path: " + f)
+  
+    User_filePath.insert(0, f)
+
+
 renameButton = ttk.Button(window,text = "Rename", command = rename)
-renameButton.grid(column=1)
+renameButton.grid(column=0, row=4)
+pathButton = ttk.Button(window,text = "Path", command = findPath)
+pathButton.grid(column=0, row=5)
 printButton = ttk.Button(window,text = "Print", command = printInput)
-printButton.grid(column=1)
+printButton.grid(column=1, row=4)
 exit_button = ttk.Button(window,text='Exit',command=lambda: window.quit())
-exit_button.grid(column=1)
+exit_button.grid(column=1, row=5)
 window.mainloop()
