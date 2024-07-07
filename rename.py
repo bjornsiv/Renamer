@@ -35,7 +35,7 @@ Label_fileName = Label(window, text = "Start Index:")
 Label_fileName.grid(column=0, row=4)
 
 
-folder = "Files"
+folder = "test files"
 initDir = f"{str(os.getcwd())}/{folder}"
 User_filePath.insert(0, initDir)
 def printInput():
@@ -48,9 +48,7 @@ def printInput():
     else:
         inp3 = int(User_startIndex.get())
     
-    print(inp3)
     isInputNumber = isinstance(inp3, numbers.Real)
-    print(isinstance(inp3, numbers.Real))
     if isInputNumber: 
         count = inp3
     else:
@@ -75,12 +73,21 @@ def printInput():
 def rename():
     inp = User_fileName.get()
     inp2 = User_fileExt.get()
+    inp3 = 0
     totalFiles = len(os.listdir(User_filePath.get()))
     inpDate = ""
-    if User_startIndex.get() == "" or isinstance(User_startIndex.get(), numbers.Real):
-        count = 1
+    countName = 0
+    
+    if User_startIndex.get() == "":
+        inp3 = 1 
     else:
-        count = User_startIndex.get()
+        inp3 = int(User_startIndex.get())
+    
+    isInputNumber = isinstance(inp3, numbers.Real)
+    if isInputNumber: 
+        countName = inp3
+    else:
+       countName = 1 
 
     if yearCheck.get() == 1:
         inpDate = inpDate + str(todaysDate.strftime("%y"))
@@ -91,10 +98,11 @@ def rename():
     
     print(f"Starting Renaming")
     for count, filename in enumerate(os.listdir(User_filePath.get()), 1):
-        dst = f"{str(inp) + str(inpDate) + str(count).zfill(2) + str(inp2)}"
+        dst = f"{str(inp) + str(inpDate) + str(countName).zfill(2) + str(inp2)}"
         src =f"{User_filePath.get()}/{filename}" 
         dst =f"{User_filePath.get()}/{dst}"
         os.rename(src, dst)
+        countName = countName + 1
         print(f"Renaming {count} of {totalFiles}")
 
 def findPath():
