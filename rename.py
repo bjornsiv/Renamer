@@ -1,7 +1,7 @@
 import os;
 from tkinter import ttk, Tk, IntVar, Entry, Label, filedialog as fd;
 import datetime;
-
+import numbers
 
 window = Tk()
 window.title("Rename files")
@@ -29,6 +29,11 @@ User_filePath.grid(column=1, row=3)
 Label_fileName = Label(window, text = "FilePath:")
 Label_fileName.grid(column=0, row=3)
 
+User_startIndex = Entry(window) #state=DISABLED
+User_startIndex.grid(column=1, row=4)
+Label_fileName = Label(window, text = "Start Index:")
+Label_fileName.grid(column=0, row=4)
+
 
 folder = "Files"
 initDir = f"{str(os.getcwd())}/{folder}"
@@ -36,8 +41,21 @@ User_filePath.insert(0, initDir)
 def printInput():
     inp = User_fileName.get()
     inp2 = User_fileExt.get()
-    count = 1
+    inp3 = 0
     inpDate = ""
+    if User_startIndex.get() == "":
+        inp3 = 1 
+    else:
+        inp3 = int(User_startIndex.get())
+    
+    print(inp3)
+    isInputNumber = isinstance(inp3, numbers.Real)
+    print(isinstance(inp3, numbers.Real))
+    if isInputNumber: 
+        count = inp3
+    else:
+       count = 1 
+    
     if yearCheck.get() == 1:
         inpDate = inpDate + str(todaysDate.strftime("%y"))
     if monthCheck.get() == 1:
@@ -59,6 +77,11 @@ def rename():
     inp2 = User_fileExt.get()
     totalFiles = len(os.listdir(User_filePath.get()))
     inpDate = ""
+    if User_startIndex.get() == "" or isinstance(User_startIndex.get(), numbers.Real):
+        count = 1
+    else:
+        count = User_startIndex.get()
+
     if yearCheck.get() == 1:
         inpDate = inpDate + str(todaysDate.strftime("%y"))
     if monthCheck.get() == 1:
@@ -81,17 +104,17 @@ def findPath():
     User_filePath.insert(0, f)
 
 renameButton = ttk.Button(window,text = "Rename", command = rename)
-renameButton.grid(column=0, row=4)
+renameButton.grid(column=0, row=5)
 pathButton = ttk.Button(window,text = "Path", command = findPath)
-pathButton.grid(column=0, row=5)
+pathButton.grid(column=0, row=6)
 printButton = ttk.Button(window,text = "Print", command = printInput)
-printButton.grid(column=1, row=4)
+printButton.grid(column=1, row=5)
 exit_button = ttk.Button(window,text='Exit',command=lambda: window.quit())
-exit_button.grid(column=1, row=5)
+exit_button.grid(column=1, row=6)
 yearRadio = ttk.Checkbutton(window, text = "Year", variable = yearCheck, onvalue = 1, offvalue = 0)
-yearRadio.grid(column=2, row=4)
+yearRadio.grid(column=2, row=5)
 monthRadio = ttk.Checkbutton(window, text = "Month", variable = monthCheck, onvalue = 1, offvalue = 0)
-monthRadio.grid(column=2, row=5)
+monthRadio.grid(column=2, row=6)
 dayRadio = ttk.Checkbutton(window, text = "Day", variable = dayCheck, onvalue = 1, offvalue = 0)
-dayRadio.grid(column=2, row=6)
+dayRadio.grid(column=2, row=7)
 window.mainloop()
